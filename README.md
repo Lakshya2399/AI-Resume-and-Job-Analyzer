@@ -15,7 +15,7 @@
 ## Demo
 
 <!-- Record a GIF with ScreenToGif (free, Windows) and replace this line -->
-![Demo GIF](demo.gif)
+![Demo GIF](resume-analyzer.gif)
 
 ---
 
