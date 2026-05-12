@@ -1,0 +1,59 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    env_file:
+      - ./backend/.env
+    environment:
+      # Backend sends runs to MLflow container over HTTP.
+      # Never use sqlite:///mlflow.db here — that writes to the backend
+      # container's own filesystem, invisible to the MLflow UI container.
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    depends_on:
+      - ollama
+      - mlflow
+
+  frontend:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev -- --host"
+    depends_on:
+      - backend
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    entrypoint: ["/bin/sh", "-c", "ollama serve & sleep 5 && ollama pull mistral && wait"]
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.14.1
+    ports:
+      - "5000:5000"
+    volumes:
+      # MLflow owns its own SQLite file inside a named volume.
+      # The backend never touches this file directly — it uses HTTP.
+      - mlflow_data:/mlflow
+    command: >
+      mlflow server
+      --host 0.0.0.0
+      --port 5000
+      --backend-store-uri sqlite:////mlflow/mlflow.db
+      --default-artifact-root /mlflow/artifacts
+
+volumes:
+  ollama_data:
+  mlflow_data:

@@ -1,0 +1,20 @@
+# Secrets — NEVER commit these
+backend/.env
+*.db
+mlruns/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# OS
+.DS_Store
+Thumbs.db

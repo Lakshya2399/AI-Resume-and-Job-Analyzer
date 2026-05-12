@@ -1,0 +1,35 @@
+fastapi
+uvicorn[standard]
+python-multipart
+pydantic>=2.7
+pydantic-settings>=2.3
+slowapi
+
+# PDF parsing
+pypdf
+
+# LLM orchestration
+langchain
+langchain-openai
+langchain-ollama
+langchain-community
+langchain-text-splitters
+openai
+
+# Vector store
+faiss-cpu
+tiktoken
+
+# MLflow for experiment tracking
+mlflow
+
+# Storage
+aiosqlite
+sqlalchemy
+
+# Dev
+pytest
+pytest-asyncio
+httpx
+python-dotenv
+sentence-transformers
