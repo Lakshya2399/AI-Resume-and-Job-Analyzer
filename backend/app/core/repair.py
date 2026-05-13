@@ -124,6 +124,21 @@ def fill_missing_fields(data: dict) -> dict:
             fixed_gaps.append(gap)
     data["skill_gaps"] = fixed_gaps
 
+    # Enforce list length caps — truncate silently rather than failing Pydantic validation.
+    # Mistral frequently returns more items than the schema allows.
+    LIST_CAPS = {
+        "strengths":           8,
+        "skill_gaps":          6,
+        "bullet_improvements": 3,
+        "matched_keywords":    20,
+        "missing_keywords":    20,
+    }
+    for field, cap in LIST_CAPS.items():
+        if isinstance(data.get(field), list) and len(data[field]) > cap:
+            logger.warning(f"Truncating '{field}' from {len(data[field])} to {cap} items.")
+            data[field] = data[field][:cap]
+            repaired = True
+
     if repaired:
         logger.info("LLM response was repaired before Pydantic validation.")
 

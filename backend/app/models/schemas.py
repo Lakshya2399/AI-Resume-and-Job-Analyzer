@@ -21,7 +21,7 @@ class MatchReport(BaseModel):
     skills_score: int = Field(ge=0, le=100)
     experience_score: int = Field(ge=0, le=100)
     keywords_score: int = Field(ge=0, le=100)
-    strengths: List[str] = Field(min_length=2, max_length=5)
+    strengths: List[str] = Field(min_length=2, max_length=8)
     skill_gaps: List[SkillGap] = Field(default_factory=list, max_length=6)
     bullet_improvements: List[BulletImprovement] = Field(default_factory=list, max_length=3)
     matched_keywords: List[str] = Field(default_factory=list)
@@ -55,4 +55,3 @@ class AnalysisResponse(BaseModel):
     prompt_version: str
     llm_model: str
     processing_time_ms: int
-
