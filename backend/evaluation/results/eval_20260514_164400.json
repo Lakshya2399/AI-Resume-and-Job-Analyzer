@@ -1,0 +1,719 @@
+[
+  {
+    "prompt_version": "v1",
+    "results": [
+      {
+        "id": "gt_001",
+        "human_score": 85,
+        "llm_score": 78,
+        "prompt_version": "v1",
+        "elapsed_s": 2.95,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_002",
+        "human_score": 82,
+        "llm_score": 96,
+        "prompt_version": "v1",
+        "elapsed_s": 3.19,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_003",
+        "human_score": 88,
+        "llm_score": 76,
+        "prompt_version": "v1",
+        "elapsed_s": 1.83,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_004",
+        "human_score": 62,
+        "llm_score": 66,
+        "prompt_version": "v1",
+        "elapsed_s": 1.61,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_005",
+        "human_score": 58,
+        "llm_score": 44,
+        "prompt_version": "v1",
+        "elapsed_s": 2.45,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_006",
+        "human_score": 65,
+        "llm_score": 66,
+        "prompt_version": "v1",
+        "elapsed_s": 3.5,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_007",
+        "human_score": 70,
+        "llm_score": 84,
+        "prompt_version": "v1",
+        "elapsed_s": 3.75,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_008",
+        "human_score": 28,
+        "llm_score": 43,
+        "prompt_version": "v1",
+        "elapsed_s": 1.6,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_009",
+        "human_score": 22,
+        "llm_score": 11,
+        "prompt_version": "v1",
+        "elapsed_s": 2.09,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_010",
+        "human_score": 35,
+        "llm_score": 27,
+        "prompt_version": "v1",
+        "elapsed_s": 2.65,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_011",
+        "human_score": 79,
+        "llm_score": 72,
+        "prompt_version": "v1",
+        "elapsed_s": 2.43,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_012",
+        "human_score": 83,
+        "llm_score": 73,
+        "prompt_version": "v1",
+        "elapsed_s": 3.43,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_013",
+        "human_score": 55,
+        "llm_score": 66,
+        "prompt_version": "v1",
+        "elapsed_s": 1.6,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_014",
+        "human_score": 60,
+        "llm_score": 66,
+        "prompt_version": "v1",
+        "elapsed_s": 2.57,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_015",
+        "human_score": 30,
+        "llm_score": 19,
+        "prompt_version": "v1",
+        "elapsed_s": 2.5,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_016",
+        "human_score": 77,
+        "llm_score": 62,
+        "prompt_version": "v1",
+        "elapsed_s": 3.61,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_017",
+        "human_score": 40,
+        "llm_score": 46,
+        "prompt_version": "v1",
+        "elapsed_s": 2.25,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_018",
+        "human_score": 68,
+        "llm_score": 56,
+        "prompt_version": "v1",
+        "elapsed_s": 2.63,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_019",
+        "human_score": 80,
+        "llm_score": 70,
+        "prompt_version": "v1",
+        "elapsed_s": 1.56,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_020",
+        "human_score": 25,
+        "llm_score": 12,
+        "prompt_version": "v1",
+        "elapsed_s": 3.4,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      }
+    ],
+    "metrics": {
+      "label": "v1",
+      "n_pairs": 20,
+      "mae": 10.05,
+      "within_10_pct": 45.0,
+      "within_15_pct": 100.0,
+      "tier_accuracy_pct": 85.0,
+      "macro_f1": 0.845,
+      "per_tier_f1": {
+        "strong": {
+          "precision": 1.0,
+          "recall": 0.875,
+          "f1": 0.933,
+          "support": 8
+        },
+        "moderate": {
+          "precision": 0.714,
+          "recall": 0.833,
+          "f1": 0.769,
+          "support": 6
+        },
+        "weak": {
+          "precision": 0.833,
+          "recall": 0.833,
+          "f1": 0.833,
+          "support": 6
+        }
+      },
+      "pearson_r": 0.898,
+      "n_failed": 0,
+      "avg_elapsed_s": 2.58,
+      "repair_rate_pct": 0.0,
+      "avg_attempts": 1.0
+    }
+  },
+  {
+    "prompt_version": "v2",
+    "results": [
+      {
+        "id": "gt_001",
+        "human_score": 85,
+        "llm_score": 72,
+        "prompt_version": "v2",
+        "elapsed_s": 2.17,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_002",
+        "human_score": 82,
+        "llm_score": 77,
+        "prompt_version": "v2",
+        "elapsed_s": 2.2,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_003",
+        "human_score": 88,
+        "llm_score": 77,
+        "prompt_version": "v2",
+        "elapsed_s": 2.67,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_004",
+        "human_score": 62,
+        "llm_score": 60,
+        "prompt_version": "v2",
+        "elapsed_s": 3.97,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_005",
+        "human_score": 58,
+        "llm_score": 56,
+        "prompt_version": "v2",
+        "elapsed_s": 2.62,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_006",
+        "human_score": 65,
+        "llm_score": 69,
+        "prompt_version": "v2",
+        "elapsed_s": 1.52,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_007",
+        "human_score": 70,
+        "llm_score": 56,
+        "prompt_version": "v2",
+        "elapsed_s": 3.24,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_008",
+        "human_score": 28,
+        "llm_score": 22,
+        "prompt_version": "v2",
+        "elapsed_s": 2.87,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_009",
+        "human_score": 22,
+        "llm_score": 26,
+        "prompt_version": "v2",
+        "elapsed_s": 3.09,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_010",
+        "human_score": 35,
+        "llm_score": 36,
+        "prompt_version": "v2",
+        "elapsed_s": 3.13,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_011",
+        "human_score": 79,
+        "llm_score": 82,
+        "prompt_version": "v2",
+        "elapsed_s": 3.82,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_012",
+        "human_score": 83,
+        "llm_score": 85,
+        "prompt_version": "v2",
+        "elapsed_s": 3.91,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_013",
+        "human_score": 55,
+        "llm_score": 44,
+        "prompt_version": "v2",
+        "elapsed_s": 3.66,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_014",
+        "human_score": 60,
+        "llm_score": 68,
+        "prompt_version": "v2",
+        "elapsed_s": 3.91,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_015",
+        "human_score": 30,
+        "llm_score": 45,
+        "prompt_version": "v2",
+        "elapsed_s": 3.62,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_016",
+        "human_score": 77,
+        "llm_score": 91,
+        "prompt_version": "v2",
+        "elapsed_s": 1.76,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_017",
+        "human_score": 40,
+        "llm_score": 46,
+        "prompt_version": "v2",
+        "elapsed_s": 1.89,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_018",
+        "human_score": 68,
+        "llm_score": 64,
+        "prompt_version": "v2",
+        "elapsed_s": 3.03,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_019",
+        "human_score": 80,
+        "llm_score": 70,
+        "prompt_version": "v2",
+        "elapsed_s": 3.72,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_020",
+        "human_score": 25,
+        "llm_score": 23,
+        "prompt_version": "v2",
+        "elapsed_s": 3.83,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      }
+    ],
+    "metrics": {
+      "label": "v2",
+      "n_pairs": 20,
+      "mae": 6.85,
+      "within_10_pct": 70.0,
+      "within_15_pct": 100.0,
+      "tier_accuracy_pct": 80.0,
+      "macro_f1": 0.792,
+      "per_tier_f1": {
+        "strong": {
+          "precision": 1.0,
+          "recall": 0.875,
+          "f1": 0.933,
+          "support": 8
+        },
+        "moderate": {
+          "precision": 0.625,
+          "recall": 0.833,
+          "f1": 0.714,
+          "support": 6
+        },
+        "weak": {
+          "precision": 0.8,
+          "recall": 0.667,
+          "f1": 0.727,
+          "support": 6
+        }
+      },
+      "pearson_r": 0.926,
+      "n_failed": 0,
+      "avg_elapsed_s": 3.03,
+      "repair_rate_pct": 0.0,
+      "avg_attempts": 1.0
+    }
+  },
+  {
+    "prompt_version": "v3",
+    "results": [
+      {
+        "id": "gt_001",
+        "human_score": 85,
+        "llm_score": 87,
+        "prompt_version": "v3",
+        "elapsed_s": 3.21,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_002",
+        "human_score": 82,
+        "llm_score": 79,
+        "prompt_version": "v3",
+        "elapsed_s": 2.57,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_003",
+        "human_score": 88,
+        "llm_score": 88,
+        "prompt_version": "v3",
+        "elapsed_s": 2.98,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_004",
+        "human_score": 62,
+        "llm_score": 61,
+        "prompt_version": "v3",
+        "elapsed_s": 2.41,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_005",
+        "human_score": 58,
+        "llm_score": 73,
+        "prompt_version": "v3",
+        "elapsed_s": 2.19,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_006",
+        "human_score": 65,
+        "llm_score": 69,
+        "prompt_version": "v3",
+        "elapsed_s": 3.19,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_007",
+        "human_score": 70,
+        "llm_score": 72,
+        "prompt_version": "v3",
+        "elapsed_s": 2.32,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_008",
+        "human_score": 28,
+        "llm_score": 36,
+        "prompt_version": "v3",
+        "elapsed_s": 3.94,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_009",
+        "human_score": 22,
+        "llm_score": 10,
+        "prompt_version": "v3",
+        "elapsed_s": 1.72,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_010",
+        "human_score": 35,
+        "llm_score": 46,
+        "prompt_version": "v3",
+        "elapsed_s": 3.89,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_011",
+        "human_score": 79,
+        "llm_score": 82,
+        "prompt_version": "v3",
+        "elapsed_s": 3.42,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_012",
+        "human_score": 83,
+        "llm_score": 88,
+        "prompt_version": "v3",
+        "elapsed_s": 3.95,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_013",
+        "human_score": 55,
+        "llm_score": 61,
+        "prompt_version": "v3",
+        "elapsed_s": 3.96,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_014",
+        "human_score": 60,
+        "llm_score": 68,
+        "prompt_version": "v3",
+        "elapsed_s": 2.68,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_015",
+        "human_score": 30,
+        "llm_score": 30,
+        "prompt_version": "v3",
+        "elapsed_s": 3.1,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_016",
+        "human_score": 77,
+        "llm_score": 77,
+        "prompt_version": "v3",
+        "elapsed_s": 2.52,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_017",
+        "human_score": 40,
+        "llm_score": 48,
+        "prompt_version": "v3",
+        "elapsed_s": 2.46,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_018",
+        "human_score": 68,
+        "llm_score": 70,
+        "prompt_version": "v3",
+        "elapsed_s": 2.33,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_019",
+        "human_score": 80,
+        "llm_score": 72,
+        "prompt_version": "v3",
+        "elapsed_s": 1.66,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      },
+      {
+        "id": "gt_020",
+        "human_score": 25,
+        "llm_score": 29,
+        "prompt_version": "v3",
+        "elapsed_s": 2.95,
+        "attempts": 1,
+        "was_repaired": false,
+        "error": null
+      }
+    ],
+    "metrics": {
+      "label": "v3",
+      "n_pairs": 20,
+      "mae": 5.1,
+      "within_10_pct": 85.0,
+      "within_15_pct": 100.0,
+      "tier_accuracy_pct": 80.0,
+      "macro_f1": 0.785,
+      "per_tier_f1": {
+        "strong": {
+          "precision": 0.8,
+          "recall": 1.0,
+          "f1": 0.889,
+          "support": 8
+        },
+        "moderate": {
+          "precision": 0.667,
+          "recall": 0.667,
+          "f1": 0.667,
+          "support": 6
+        },
+        "weak": {
+          "precision": 1.0,
+          "recall": 0.667,
+          "f1": 0.8,
+          "support": 6
+        }
+      },
+      "pearson_r": 0.961,
+      "n_failed": 0,
+      "avg_elapsed_s": 2.87,
+      "repair_rate_pct": 0.0,
+      "avg_attempts": 1.0
+    }
+  }
+]

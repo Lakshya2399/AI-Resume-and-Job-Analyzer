@@ -1,0 +1,4 @@
+prompt_version,mae,within_10_pct,tier_accuracy_pct,macro_f1,pearson_r,repair_rate_pct,avg_elapsed_s
+v1,11.0,70.6,76.5,0.733,0.92,23.5,12.41
+v2,10.35,70.0,85.0,0.839,0.806,45.0,11.71
+v3,8.16,78.9,73.7,0.658,0.916,26.3,10.11

@@ -1,0 +1,142 @@
+[
+  {
+    "id": "gt_001",
+    "label": "strong_match",
+    "human_score": 85,
+    "resume_text": "Senior Python Developer with 5 years experience. Built FastAPI microservices handling 10k req/s. Led migration from monolith to microservices. Proficient in Docker, Kubernetes, PostgreSQL, Redis. Implemented CI/CD pipelines with GitHub Actions. Experience with async Python, SQLAlchemy, Pydantic. BSc Computer Science.",
+    "job_description": "Senior Backend Engineer. Required: Python 3.10+, FastAPI or Django, Docker, PostgreSQL. Nice to have: Kubernetes, Redis, CI/CD experience. 4+ years experience. Build and maintain high-traffic REST APIs."
+  },
+  {
+    "id": "gt_002",
+    "label": "strong_match",
+    "human_score": 82,
+    "resume_text": "Machine Learning Engineer, 4 years. Deployed XGBoost and LightGBM models to production using FastAPI and Docker. Built feature engineering pipelines with pandas and scikit-learn. Familiar with MLflow for experiment tracking. Experience with AWS SageMaker. MSc Data Science.",
+    "job_description": "ML Engineer. Must have: Python, scikit-learn, model deployment, FastAPI, Docker. Preferred: MLflow, AWS, feature engineering experience. 3+ years ML experience required."
+  },
+  {
+    "id": "gt_003",
+    "label": "strong_match",
+    "human_score": 88,
+    "resume_text": "Data Engineer with 6 years experience. Expert in Apache Spark, Airflow, dbt, Snowflake. Built petabyte-scale data pipelines. Strong Python and SQL. Implemented data quality frameworks. Experience with Kafka, Delta Lake. Led team of 4 engineers.",
+    "job_description": "Senior Data Engineer. Required: Python, SQL, Apache Spark, Airflow. Preferred: dbt, Snowflake, Kafka. 5+ years experience. Build scalable ETL pipelines and data infrastructure."
+  },
+  {
+    "id": "gt_004",
+    "label": "moderate_match",
+    "human_score": 62,
+    "resume_text": "Full Stack Developer, 3 years. React, Node.js, Express, MongoDB. Built e-commerce platforms and dashboards. Some Python scripting experience. Familiar with REST APIs. AWS basics. No formal ML experience.",
+    "job_description": "Python Backend Developer. Required: Python, FastAPI, PostgreSQL, Docker. Nice to have: ML knowledge, SQLAlchemy. 2+ years backend experience. REST API development for data-intensive applications."
+  },
+  {
+    "id": "gt_005",
+    "label": "moderate_match",
+    "human_score": 58,
+    "resume_text": "Data Analyst, 4 years. Advanced Excel, SQL, Tableau, Power BI. Built dashboards and reports. Python basics for data cleaning (pandas). No machine learning deployment. BSc Statistics.",
+    "job_description": "Data Scientist. Required: Python, scikit-learn, model building and deployment. Preferred: MLflow, FastAPI, Docker. Build and ship ML models to production. 3+ years experience."
+  },
+  {
+    "id": "gt_006",
+    "label": "moderate_match",
+    "human_score": 65,
+    "resume_text": "DevOps Engineer, 5 years. Expert in Kubernetes, Terraform, Helm, Ansible. CI/CD with Jenkins and GitHub Actions. AWS, GCP infrastructure. Python scripting for automation. No software development background beyond scripting.",
+    "job_description": "Backend Python Developer. Required: Python, FastAPI, PostgreSQL, REST APIs. Nice to have: Docker, Kubernetes. Primarily a software engineering role building product APIs. 3+ years."
+  },
+  {
+    "id": "gt_007",
+    "label": "moderate_match",
+    "human_score": 70,
+    "resume_text": "Junior ML Engineer, 1.5 years. Python, scikit-learn, TensorFlow basics. Jupyter notebooks, pandas, NumPy. Helped deploy one model to staging. MSc Machine Learning (graduated 6 months ago).",
+    "job_description": "ML Engineer, 3+ years required. Python, PyTorch or TensorFlow, MLflow, model deployment to production, FastAPI, Docker. Building production ML systems at scale."
+  },
+  {
+    "id": "gt_008",
+    "label": "weak_match",
+    "human_score": 28,
+    "resume_text": "Marketing Manager, 8 years. Campaign management, Google Ads, SEO, content strategy, Salesforce CRM. Managed $2M annual budget. Led team of 6. MBA.",
+    "job_description": "Senior Python Developer. Required: Python, FastAPI, PostgreSQL, Docker, REST APIs. 5+ years software engineering. Build backend services for fintech platform."
+  },
+  {
+    "id": "gt_009",
+    "label": "weak_match",
+    "human_score": 22,
+    "resume_text": "Mechanical Engineer, 10 years. CAD design (SolidWorks, AutoCAD), FEA analysis, manufacturing processes, project management. MATLAB for simulations. No software development experience.",
+    "job_description": "Data Engineer. Required: Python, SQL, Apache Spark, Airflow, cloud platforms. Build data pipelines processing millions of events daily. 4+ years data engineering."
+  },
+  {
+    "id": "gt_010",
+    "label": "weak_match",
+    "human_score": 35,
+    "resume_text": "PHP Web Developer, 6 years. Laravel, MySQL, JavaScript, jQuery, HTML/CSS. Built CMS and e-commerce sites. Some REST API work. No Python experience.",
+    "job_description": "Python ML Engineer. Required: Python, TensorFlow or PyTorch, model deployment, Docker. Nice to have: LangChain, RAG, LLM fine-tuning. Build and deploy ML models."
+  },
+  {
+    "id": "gt_011",
+    "label": "strong_match",
+    "human_score": 79,
+    "resume_text": "NLP Engineer, 3 years. Python, HuggingFace transformers, fine-tuning BERT and GPT-2. FastAPI for model serving. Docker, basic Kubernetes. Built named entity recognition and sentiment analysis systems. PyTorch, LangChain basics.",
+    "job_description": "NLP / LLM Engineer. Required: Python, HuggingFace, transformer models, FastAPI. Preferred: LangChain, RAG, vector databases. 3+ years NLP experience. Build production NLP pipelines."
+  },
+  {
+    "id": "gt_012",
+    "label": "strong_match",
+    "human_score": 83,
+    "resume_text": "Backend Engineer, 5 years. Python, Django REST Framework, PostgreSQL, Redis, Celery. Designed high-availability systems handling 50k concurrent users. Microservices with Docker and Kubernetes. Strong knowledge of SQL optimisation and caching strategies.",
+    "job_description": "Senior Backend Engineer. Required: Python, Django or FastAPI, PostgreSQL, Redis, Docker. Nice to have: Kubernetes, Celery. Build scalable backend for SaaS product. 4+ years."
+  },
+  {
+    "id": "gt_013",
+    "label": "moderate_match",
+    "human_score": 55,
+    "resume_text": "Research Scientist (Academia), 7 years. Python, R, MATLAB. Statistical modelling, hypothesis testing, experimental design. Published 12 papers. PyTorch for deep learning research. No production deployment experience.",
+    "job_description": "Applied Scientist. Required: Python, ML model development AND deployment, Docker, FastAPI. Must have production ML experience. Nice to have: MLflow, cloud platforms. Industry role."
+  },
+  {
+    "id": "gt_014",
+    "label": "moderate_match",
+    "human_score": 60,
+    "resume_text": "iOS Developer, 4 years. Swift, SwiftUI, Objective-C, Xcode. REST API integration. Python scripting basics. One ML Core ML project. Familiar with Agile.",
+    "job_description": "Python Backend Developer. Required: Python, FastAPI, REST APIs, Docker, PostgreSQL. 3+ years backend experience. Some ML integration work."
+  },
+  {
+    "id": "gt_015",
+    "label": "weak_match",
+    "human_score": 30,
+    "resume_text": "Financial Analyst, 6 years. Excel VBA, Bloomberg Terminal, DCF modelling, financial reporting, SQL basics for querying. CFA Level 2. No programming background beyond Excel.",
+    "job_description": "Data Engineer. Required: Python, SQL, Spark, Airflow, cloud data warehouses. 4+ years data engineering. Build and maintain production data infrastructure."
+  },
+  {
+    "id": "gt_016",
+    "label": "strong_match",
+    "human_score": 77,
+    "resume_text": "Cloud Engineer, 4 years. AWS (EC2, ECS, Lambda, RDS, S3), Terraform, Python for automation, Docker, GitHub Actions CI/CD. Built serverless data processing pipelines. PostgreSQL, DynamoDB. FastAPI basics.",
+    "job_description": "Cloud Backend Engineer. Required: Python, AWS, Docker, CI/CD, REST APIs. Preferred: Terraform, serverless, FastAPI. 3+ years cloud engineering. Build and deploy cloud-native services."
+  },
+  {
+    "id": "gt_017",
+    "label": "weak_match",
+    "human_score": 40,
+    "resume_text": "QA Engineer, 5 years. Selenium, Pytest, API testing with Postman, test planning, bug reporting. Python scripting for test automation. No software development or ML background.",
+    "job_description": "ML Engineer. Required: Python, PyTorch, model training and deployment, MLflow, Docker. Build production ML systems. 3+ years ML engineering experience."
+  },
+  {
+    "id": "gt_018",
+    "label": "moderate_match",
+    "human_score": 68,
+    "resume_text": "Data Scientist, 2 years. Python, scikit-learn, XGBoost, pandas, SQL. Built classification and regression models. Jupyter, matplotlib. Some FastAPI for a prototype. No production deployment. MSc Computer Science.",
+    "job_description": "ML Engineer. Required: Python, model deployment to production, Docker, FastAPI, MLflow. Nice to have: scikit-learn, XGBoost. 2+ years ML or data science. Production focus."
+  },
+  {
+    "id": "gt_019",
+    "label": "strong_match",
+    "human_score": 80,
+    "resume_text": "Platform Engineer, 6 years. Python, Go, Kubernetes, Terraform, AWS, GCP. Built internal developer platforms. FastAPI microservices. PostgreSQL, Redis. Strong DevOps and SRE background. CI/CD expert.",
+    "job_description": "Senior Backend / Platform Engineer. Required: Python, FastAPI, Docker, Kubernetes, cloud (AWS or GCP). Preferred: Terraform, Go. Build internal developer tooling and APIs. 5+ years."
+  },
+  {
+    "id": "gt_020",
+    "label": "weak_match",
+    "human_score": 25,
+    "resume_text": "HR Business Partner, 10 years. Talent acquisition, performance management, employment law, HRIS systems (Workday, SAP). Excel and basic data analysis. MBA in HR.",
+    "job_description": "Senior Python Engineer. Required: Python, FastAPI, Docker, PostgreSQL, microservices. 5+ years backend engineering. Build high-performance APIs for B2B SaaS."
+  }
+]
