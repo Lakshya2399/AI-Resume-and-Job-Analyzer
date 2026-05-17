@@ -1,12 +1,14 @@
 import { useState } from "react";
 import styles from "./styles";
 import { API } from "./utils";
+import LandingPage from "./components/LandingPage";
 import UploadForm from "./components/UploadForm";
 import ResultPanel from "./components/ResultPanel";
 import HistoryTab from "./components/HistoryTab";
 
+// Top-level views: landing | analyse | history
 export default function App() {
-  const [tab, setTab] = useState("analyse");
+  const [view, setView] = useState("landing");
 
   // Form state
   const [file, setFile] = useState(null);
@@ -45,32 +47,45 @@ export default function App() {
     }
   };
 
+  // Landing page handles its own full-screen layout
+  if (view === "landing") {
+    return (
+      <LandingPage
+        onAnalyse={() => setView("analyse")}
+        onHistory={() => setView("history")}
+      />
+    );
+  }
+
   return (
     <>
       <style>{styles}</style>
       <div className="app">
 
         <header className="header">
-          <div className="logo-mark">RA</div>
-          <div className="header-title">Resume Analyzer</div>
+          <div className="logo-mark" style={{ cursor: "pointer" }} onClick={() => setView("landing")}>RA</div>
+          <div className="header-title" style={{ cursor: "pointer" }} onClick={() => setView("landing")}>Resume Analyzer</div>
           <nav className="nav">
             <button
-              className={`nav-btn ${tab === "analyse" ? "active" : ""}`}
-              onClick={() => setTab("analyse")}
+              className={`nav-btn ${view === "analyse" ? "active" : ""}`}
+              onClick={() => setView("analyse")}
             >
               Analyse
             </button>
             <button
-              className={`nav-btn ${tab === "history" ? "active" : ""}`}
-              onClick={() => setTab("history")}
+              className={`nav-btn ${view === "history" ? "active" : ""}`}
+              onClick={() => setView("history")}
             >
               History
+            </button>
+            <button className="nav-btn" onClick={() => setView("landing")}>
+              Home
             </button>
           </nav>
           <div className="header-sub">v0.4.0</div>
         </header>
 
-        {tab === "history" ? (
+        {view === "history" ? (
           <HistoryTab />
         ) : (
           <div className="main">
