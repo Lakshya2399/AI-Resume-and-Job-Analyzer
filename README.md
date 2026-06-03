@@ -6,75 +6,52 @@
 ![Docker](https://img.shields.io/badge/Docker-ready-2496ED?style=flat-square&logo=docker&logoColor=white)
 ![MLflow](https://img.shields.io/badge/MLflow-tracked-0194E2?style=flat-square&logo=mlflow&logoColor=white)
 ![LangChain](https://img.shields.io/badge/LangChain-0.2-1C3C3C?style=flat-square)
-![Tests](https://img.shields.io/badge/tests-62%20passing-4CAF50?style=flat-square)
+![Tests](https://img.shields.io/badge/tests-87%20passing-4CAF50?style=flat-square)
 ![Eval](https://img.shields.io/badge/eval-78.9%25%20within--10-7c6dfa?style=flat-square)
 
-> Upload a resume PDF and a job description. Get a structured match score, skill gaps, bullet rewrites, and semantic similarity — all powered by a local LLM with zero ongoing cost.
+> Upload a resume PDF and a job description. Get a structured match score, skill gaps, bullet rewrites, and semantic similarity — all powered by a local LLM with zero ongoing cost and zero data sent to third parties.
 
 ---
 
 ## Demo
 
 <!-- Record a GIF with ScreenToGif (free, Windows) and replace this line -->
-![Demo GIF](resume-analyzer.gif)
-
----
-
-## What it does
-
-| Output | Description |
-|--------|-------------|
-| **Overall match score** (0–100) | Calibrated score with plain-English reasoning |
-| **Dimension scores** | Skills, experience, and keyword match scored separately |
-| **Skill gaps** | Ordered by importance (critical / important / nice-to-have) with concrete suggestions |
-| **Bullet rewrites** | Takes weak resume bullets and rewrites them to match the JD's language |
-| **Semantic similarity** | Independent FAISS + sentence-transformer signal alongside the LLM score |
-| **Divergence detection** | Flags and explains when the two signals disagree |
-| **Run history** | Every analysis saved to SQLite, browsable in the UI |
-| **MLflow tracking** | All scores, prompt versions, and latency logged per run |
+![Demo GIF](demo.gif)
 
 ---
 
 ## Architecture
 
-```
-┌─────────────────┐     multipart/form    ┌──────────────────────────────────────┐
-│   React (Vite)  │ ──────────────────▶  │           FastAPI backend            │
-│  localhost:5173 │                       │                                      │
-└─────────────────┘                       │  ┌─────────────┐  ┌──────────────┐  │
-                                          │  │  LLM scorer │  │ FAISS scorer │  │
-                                          │  │  (LangChain)│  │ (MiniLM-L6)  │  │
-                                          │  └──────┬──────┘  └──────┬───────┘  │
-                                          │         └────────┬────────┘          │
-                                          │              asyncio.gather          │
-                                          │         ┌────────▼────────┐          │
-                                          │         │  repair + Pydantic         │
-                                          │         │  divergence check │         │
-                                          │         └────────┬────────┘          │
-                                          │      ┌──────────▼──────────┐         │
-                                          │      │  SQLite  │  MLflow  │         │
-                                          │      └──────────────────────┘         │
-                                          └──────────────────────────────────────┘
-                                                          │
-                                                   ┌──────▼──────┐
-                                                   │   Ollama    │
-                                                   │  (Mistral)  │
-                                                   └─────────────┘
-```
+![Architecture diagram](docs/architecture-diagram.svg)
 
 **Key engineering decisions:**
 
-- LLM and FAISS scoring run **concurrently** via `asyncio.gather()` + `ThreadPoolExecutor` — saves ~2s per request
-- **3-strategy JSON repair layer** (`repair.py`) salvages malformed LLM responses before Pydantic validation — repair rate of 26% on v3, effectively eliminating hard failures
-- **Prompt versioning** — 3 templates tracked in MLflow; few-shot (v3) outperforms baseline (v1) by 6.7pp on within-10 accuracy and 24.7% lower MAE
+- LLM and FAISS semantic scoring run **concurrently** via `asyncio.gather()` + `ThreadPoolExecutor` — both signals computed simultaneously, not sequentially
+- **3-strategy JSON repair layer** (`repair.py`) salvages malformed LLM responses — repair rate 26% on Mistral with zero hard failures
+- **3 prompt templates** tracked separately in MLflow — few-shot (v3) outperforms baseline by 6.7pp on within-10 accuracy and 24.7% lower MAE
 - **Rate limiting** via `slowapi` — 10 requests/min per IP
 - Fully **Dockerised** — one `docker-compose up` starts all 4 services
 
 ---
 
+## What it produces
+
+| Output | Description |
+|--------|-------------|
+| **Overall match score** (0–100) | Calibrated LLM score with plain-English reasoning |
+| **Dimension scores** | Skills, experience, and keyword match scored separately |
+| **Skill gaps** | Ordered by importance with concrete suggestions |
+| **Bullet rewrites** | Rewrites weak resume bullets to match the JD's language |
+| **Semantic similarity** | Independent FAISS + MiniLM score alongside the LLM score |
+| **Divergence detection** | Flags and explains when the two signals disagree |
+| **Run history** | Every analysis saved to SQLite, browsable in the UI |
+| **MLflow tracking** | All scores, prompt versions, repair rate, and latency per run |
+
+---
+
 ## Evaluation results
 
-Evaluated against a **20-pair human-labelled ground truth dataset** spanning strong, moderate, and weak resume-JD matches. All three prompt templates were tested independently and results logged to MLflow.
+Measured against a **20-pair human-labelled ground truth dataset** spanning strong, moderate, and weak resume-JD matches across technical roles.
 
 | Metric | v1 baseline | v2 chain-of-thought | v3 few-shot ✓ |
 |--------|-------------|---------------------|----------------|
@@ -85,40 +62,23 @@ Evaluated against a **20-pair human-labelled ground truth dataset** spanning str
 | Pearson r ↑ | **0.929** | 0.806 | 0.916 |
 | Repair rate ↓ | **11.1%** | 45.0% | 26.3% |
 | Avg latency ↓ | 12.58s | 11.67s | **10.09s** |
-| Errors | 2 | 0 | 1 |
 
-**v3 (few-shot) selected as default** — best MAE, highest within-10 accuracy, and fastest latency. v2 achieves the best tier-level F1 (0.839) and zero hard errors, making it the stronger choice when tier classification matters more than score precision.
+**v3 (few-shot) selected as default** — best MAE, highest within-10 accuracy, and fastest latency. v2 is the stronger choice when tier classification matters over score precision.
 
-**Known limitation:** all three prompts show an upward bias on clearly unqualified candidates (e.g. non-technical backgrounds scoring ~50 vs human label of 22–35). This is a known LLM calibration issue and a target for Week 7 fine-tuning.
-
----
-
-## Tech stack
-
-| Layer | Tech |
-|-------|------|
-| LLM | Ollama (Mistral 7B, local, free) or OpenAI GPT-3.5 |
-| Orchestration | LangChain + StrOutputParser |
-| Embeddings | sentence-transformers `all-MiniLM-L6-v2` |
-| Vector search | FAISS FlatIP |
-| API | FastAPI + slowapi (rate limiting) |
-| Database | SQLite via SQLAlchemy |
-| Experiment tracking | MLflow |
-| Frontend | React 18 + Vite |
-| Containerisation | Docker + Docker Compose |
+**Known limitation:** all three prompts show upward bias on clearly unqualified candidates (~25–28pt overestimation). Documented in `ARCHITECTURE.md`.
 
 ---
 
 ## Getting started
 
-### Option A — Local (recommended for development)
+### Local (recommended for development)
 
 **Prerequisites:** Python 3.11+, Node 18+, [Ollama](https://ollama.com)
 
 ```bash
-# 1. Pull the LLM (one-time, ~4GB)
+# 1. Pull the model (one-time, ~4GB)
 ollama pull mistral
-ollama serve          # keep this running in a terminal
+ollama serve          # keep running in its own terminal
 
 # 2. Backend
 cd backend
@@ -136,7 +96,7 @@ npm run dev
 # → http://localhost:5173
 ```
 
-### Option B — Docker Compose (all 4 services)
+### Docker Compose (all 4 services)
 
 ```bash
 cp backend/.env.example backend/.env
@@ -146,17 +106,17 @@ docker-compose up --build
 | Service | URL |
 |---------|-----|
 | Frontend | http://localhost:5173 |
-| API + Swagger | http://localhost:8000/docs |
+| API + Swagger UI | http://localhost:8000/docs |
 | MLflow UI | http://localhost:5000 |
 
-> First run pulls Mistral (~4GB) into the Ollama container automatically.
+First run pulls Mistral (~4GB) automatically.
 
 ### Run the evaluation
 
 ```bash
 cd backend
 
-# Dry run — instant, no LLM calls
+# Dry run — instant, no LLM calls, confirms pipeline works
 python -m evaluation.evaluate --dry-run
 
 # Single prompt
@@ -166,19 +126,19 @@ python -m evaluation.evaluate --prompt v3
 python -m evaluation.evaluate
 ```
 
-Results are saved to `evaluation/results/` as JSON + CSV and logged to MLflow under the `resume-analyzer-eval` experiment.
+Results saved to `evaluation/results/` as JSON + CSV and logged to the `resume-analyzer-eval` MLflow experiment.
 
 ---
 
 ## API endpoints
 
 ```
-POST /analyse/upload        Upload PDF + job description → full report
-POST /analyse/text          Same but accepts plain text (good for testing)
-GET  /analyse/history       All past runs, newest first
-GET  /analyse/history/{id}  Full stored report for one run
-GET  /analyse/metrics       Aggregate stats (avg score, total runs, etc.)
-GET  /analyse/health        Liveness check
+POST /analyse/upload         Upload PDF + job description → full report
+POST /analyse/text           Same but accepts plain text (no PDF needed)
+GET  /analyse/history        All past runs, newest first
+GET  /analyse/history/{id}   Full stored report for one run
+GET  /analyse/metrics        Aggregate stats (avg score, total runs, breakdown)
+GET  /analyse/health         Liveness check
 ```
 
 All endpoints documented interactively at `/docs`.
@@ -187,19 +147,103 @@ All endpoints documented interactively at `/docs`.
 
 ## Prompt versions
 
-Three templates, all tracked in MLflow:
-
 | Version | Strategy | MAE | Within-10 | Notes |
 |---------|----------|-----|-----------|-------|
 | `v1` | Direct instruction + JSON schema | 10.83 | 72.2% | Lowest repair rate (11%) |
-| `v2` | Chain-of-thought — step by step | 10.35 | 70.0% | Best tier F1 (0.839), high repair rate (45%) |
-| `v3` | Few-shot example before request | **8.16** | **78.9%** | Default — best accuracy + fastest |
+| `v2` | Chain-of-thought — step by step | 10.35 | 70.0% | Best tier F1 (0.839) |
+| `v3` | Few-shot example | **8.16** | **78.9%** | Default — best accuracy + fastest |
+
+---
+
+## Project structure
+
+```
+resume-analyzer/
+├── .github/workflows/
+│   ├── ci.yml                 # tests + lint + frontend build on every push
+│   └── deploy.yml             # build → ACR → Azure Container Apps on main
+├── docs/
+│   └── architecture-diagram.svg
+├── backend/
+│   ├── app/
+│   │   ├── api/analyse.py     # routes · rate limiting · concurrent dispatch
+│   │   ├── core/
+│   │   │   ├── config.py      # pydantic-settings · lru_cache
+│   │   │   ├── database.py    # SQLite · AnalysisRun · run history
+│   │   │   └── repair.py      # 3-strategy JSON repair · field patching · list caps
+│   │   ├── models/schemas.py  # MatchReport · SemanticResult · AnalysisResponse
+│   │   ├── services/
+│   │   │   ├── embeddings.py  # FAISS FlatIP · MiniLM-L6-v2 · divergence
+│   │   │   ├── parser.py      # PDF → text → overlapping chunks
+│   │   │   ├── preprocessor.py # unicode · whitespace · truncation
+│   │   │   ├── scorer.py      # LangChain chain · 3 prompts · retry
+│   │   │   └── tracker.py     # MLflow per-run logging
+│   │   └── main.py            # app boot · CORS · rate limiter · lifespan
+│   ├── evaluation/
+│   │   ├── ground_truth.json  # 20-pair human-labelled dataset
+│   │   ├── metrics.py         # MAE · within-N · tier F1 · Pearson r
+│   │   ├── evaluate.py        # runner · MLflow logging · JSON/CSV output
+│   │   └── results/           # generated eval output (gitignored)
+│   └── tests/
+│       ├── test_week1.py      # 10 — parser · schemas · scorer
+│       ├── test_week2.py      # 26 — preprocessor · repair · retry · integration
+│       ├── test_week3.py      # 26 — FAISS · embeddings · divergence
+│       └── test_week6.py      # 25 — MAE · within-N · F1 · Pearson
+├── frontend/
+│   ├── src/
+│   │   ├── App.jsx            # routing: landing → analyse → history
+│   │   ├── styles.js          # CSS variables and class definitions
+│   │   ├── utils.jsx          # helpers: scoreColor · scoreLabel · formatDate
+│   │   └── components/
+│   │       ├── LandingPage.jsx  # dark-theme marketing page with live eval data
+│   │       ├── UploadForm.jsx   # drag-and-drop PDF upload
+│   │       ├── ResultPanel.jsx  # score ring · gaps · bullet rewrites · keywords
+│   │       ├── ScoreRing.jsx    # animated SVG score ring + dimension bars
+│   │       └── HistoryTab.jsx   # run list + slide-in detail drawer
+│   ├── Dockerfile             # 2-stage: node builder → nginx
+│   └── nginx.conf             # SPA routing + /analyse proxy
+├── backend/Dockerfile         # non-root user · healthcheck · 2 workers
+├── docker-compose.yml         # local dev (4 services + live reload)
+├── docker-compose.prod.yml    # production (ACR images, no volumes)
+├── ARCHITECTURE.md            # system design · data models · concurrency
+├── CHANGELOG.md               # structured history of all 8 weeks
+├── PORTFOLIO.md               # recruiter-facing project summary
+└── DEPLOY.md                  # Azure setup guide
+```
+
+---
+
+## Test suite
+
+```bash
+cd backend && pytest tests/ -v
+```
+
+```
+87 tests — 4 files — all mocked (no real LLM or network calls required)
+
+test_week1.py   10 — PDF parsing, chunking, Pydantic validation, scorer pipeline
+test_week2.py   26 — preprocessor, JSON repair, retry logic, HTTP integration
+test_week3.py   26 — FAISS index, embeddings, semantic scoring, divergence
+test_week6.py   25 — MAE, within-N accuracy, tier F1, Pearson r, full_report
+```
+
+---
+
+## Environment variables
+
+| Variable | Local default | Docker |
+|----------|--------------|--------|
+| `LLM_PROVIDER` | `ollama` | same |
+| `LLM_MODEL` | `mistral` | same |
+| `OLLAMA_BASE_URL` | `http://localhost:11434` | `http://ollama:11434` |
+| `OPENAI_API_KEY` | — | set if using OpenAI |
+| `MLFLOW_TRACKING_URI` | `./mlruns` | `http://mlflow:5000` |
+| `MLFLOW_EXPERIMENT_NAME` | `resume-analyzer` | same |
 
 ---
 
 ## Using OpenAI instead of Ollama
-
-Edit `backend/.env`:
 
 ```env
 LLM_PROVIDER=openai
@@ -211,88 +255,27 @@ Cost: ~$0.002 per analysis. Running 100 analyses ≈ $0.20.
 
 ---
 
-## Project structure
-
-```
-resume-analyzer/
-├── docker-compose.yml
-├── backend/
-│   ├── app/
-│   │   ├── api/
-│   │   │   └── analyse.py          # Routes: upload, text, history, metrics
-│   │   ├── core/
-│   │   │   ├── config.py           # Pydantic settings — reads .env
-│   │   │   ├── database.py         # SQLite — saves every run
-│   │   │   └── repair.py           # JSON repair — strips fences, fills defaults
-│   │   ├── models/
-│   │   │   └── schemas.py          # MatchReport, SemanticResult, AnalysisResponse
-│   │   ├── services/
-│   │   │   ├── embeddings.py       # FAISS + sentence-transformers pipeline
-│   │   │   ├── parser.py           # PDF → text → chunks
-│   │   │   ├── preprocessor.py     # Unicode fix, whitespace, truncation
-│   │   │   ├── scorer.py           # LangChain chain, prompt templates, retry
-│   │   │   └── tracker.py          # MLflow logging
-│   │   └── main.py                 # FastAPI app, lifespan, CORS, rate limiter
-│   ├── evaluation/
-│   │   ├── ground_truth.json       # 20-pair human-labelled dataset
-│   │   ├── metrics.py              # MAE, within-N, tier F1, Pearson r
-│   │   ├── evaluate.py             # Evaluation runner — all 3 prompts vs ground truth
-│   │   └── results/                # Generated JSON + CSV output
-│   └── tests/
-│       ├── test_week1.py           # 10 tests — parser, schemas, scorer
-│       ├── test_week2.py           # 26 tests — preprocessor, repair, retry, integration
-│       ├── test_week3.py           # 26 tests — FAISS, embeddings, divergence
-│       └── test_week6.py           # 25 tests — evaluation metrics
-└── frontend/
-    └── src/
-        ├── App.jsx                 # Root — state and routing only
-        ├── styles.js               # All CSS variables and class definitions
-        ├── utils.jsx               # scoreColor, scoreLabel, formatDate helpers
-        └── components/
-            ├── ScoreRing.jsx       # Animated SVG score ring + dimension bars
-            ├── ResultPanel.jsx     # Full analysis output renderer
-            ├── UploadForm.jsx      # Drag-and-drop PDF upload + form controls
-            └── HistoryTab.jsx      # Run history list + slide-in detail drawer
-```
-
----
-
-## Test suite
-
-```bash
-cd backend
-pytest tests/ -v
-```
-
-```
-87 tests passing across 4 files
-test_week1.py   10 tests — PDF parsing, Pydantic validation, scorer pipeline
-test_week2.py   26 tests — preprocessor, JSON repair, retry logic, HTTP integration
-test_week3.py   26 tests — FAISS index, embeddings, semantic scoring, divergence
-test_week6.py   25 tests — MAE, within-N accuracy, tier F1, Pearson r, full report
-```
-
----
-
-## Environment variables
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `LLM_PROVIDER` | `ollama` | `ollama` or `openai` |
-| `LLM_MODEL` | `mistral` | Model name |
-| `OLLAMA_BASE_URL` | `http://localhost:11434` | Use `http://ollama:11434` in Docker |
-| `OPENAI_API_KEY` | — | Required if using OpenAI |
-| `MLFLOW_TRACKING_URI` | `./mlruns` | Use `http://mlflow:5000` in Docker |
-| `MLFLOW_EXPERIMENT_NAME` | `resume-analyzer` | MLflow experiment label |
-
----
-
 ## Roadmap
 
-- [x] Week 1–2 — Core LLM pipeline: PDF parsing, structured output, retry logic, preprocessing
-- [x] Week 3 — FAISS semantic similarity: embeddings, cosine scoring, divergence detection
-- [x] Week 4 — Full backend: rate limiting, history endpoint, metrics endpoint, concurrent scoring
-- [x] Week 5 — React frontend: drag-and-drop upload, score ring, skill gaps, bullet rewrites, history tab
-- [x] Week 6 — Evaluation framework: 20-pair ground truth dataset, 3-prompt comparison, MAE/F1/Pearson metrics
-- [ ] Week 7 — Azure deployment + GitHub Actions CI/CD
-- [ ] Week 8 — Architecture diagram, demo GIF, Loom walkthrough
+- [x] Week 1–2 — Core LLM pipeline: PDF parsing, structured output, 3-strategy repair, retry logic
+- [x] Week 3 — FAISS semantic similarity: MiniLM embeddings, cosine scoring, divergence detection
+- [x] Week 4 — Full backend: rate limiting, history/metrics endpoints, concurrent asyncio scoring
+- [x] Week 5 — React frontend: landing page, drag-and-drop upload, score ring, history drawer
+- [x] Week 6 — Evaluation framework: 20-pair ground truth, 3-prompt comparison, MLflow metrics
+- [x] Week 7 — CI/CD: GitHub Actions (test + lint + build), Docker multi-stage builds, Azure-ready
+- [x] Week 8 — Polish: architecture diagram, CHANGELOG, PORTFOLIO.md, .gitignore, final README
+
+---
+
+## Further reading
+
+- [`ARCHITECTURE.md`](ARCHITECTURE.md) — request lifecycle, data models, concurrency model, repair pipeline
+- [`PORTFOLIO.md`](PORTFOLIO.md) — recruiter-facing summary with interview talking points
+- [`CHANGELOG.md`](CHANGELOG.md) — full development history
+- [`DEPLOY.md`](DEPLOY.md) — Azure deployment guide
+
+---
+
+## Licence
+
+MIT

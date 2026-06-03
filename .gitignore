@@ -1,20 +1,80 @@
-# Secrets — NEVER commit these
-backend/.env
-*.db
-mlruns/
+# ── Secrets — NEVER commit these ──────────────────────────────────────────────
+.env
+.env.production
+.env.local
+*.env
 
-# Python
+# ── Python ────────────────────────────────────────────────────────────────────
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+*.so
 .venv/
 venv/
+env/
+ENV/
 *.egg-info/
+dist/
+build/
+.eggs/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ── Testing ───────────────────────────────────────────────────────────────────
 .pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
 
-# Node
-frontend/node_modules/
+# ── Databases ─────────────────────────────────────────────────────────────────
+*.db
+*.sqlite
+*.sqlite3
+
+# ── MLflow ────────────────────────────────────────────────────────────────────
+mlruns/
+mlartifacts/
+
+# ── Evaluation outputs ────────────────────────────────────────────────────────
+# Keep ground_truth.json and metrics.py, ignore generated results
+backend/evaluation/results/
+# But keep the results directory itself
+!backend/evaluation/results/.gitkeep
+
+# ── Node / Frontend ───────────────────────────────────────────────────────────
+node_modules/
 frontend/dist/
+frontend/build/
+.npm
+*.tsbuildinfo
 
-# OS
+# ── Docker ────────────────────────────────────────────────────────────────────
+.docker/
+
+# ── OS ────────────────────────────────────────────────────────────────────────
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+desktop.ini
+
+# ── IDE ───────────────────────────────────────────────────────────────────────
+.vscode/settings.json
+.vscode/launch.json
+.idea/
+*.swp
+*.swo
+*~
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── Misc ──────────────────────────────────────────────────────────────────────
+*.bak
+*.tmp
+.cache/
